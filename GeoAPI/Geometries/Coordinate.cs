@@ -52,10 +52,16 @@ namespace GeoAPI.Geometries
         /// X coordinate.
         /// </summary>
         public double Y; // = Double.NaN;
+        
         /// <summary>
-        /// X coordinate.
+        /// The Z or up or altitude ordinate
         /// </summary>
         public double Z; // = Double.NaN;
+        
+        /// <summary>
+        /// The measure ordinate
+        /// </summary>
+        public double M;
 
         /// <summary>
         /// Constructs a <other>Coordinate</other> at (x,y,z).
@@ -117,7 +123,7 @@ namespace GeoAPI.Geometries
         public Coordinate() : this(0.0, 0.0, NullOrdinate) { }
 
         /// <summary>
-        /// Constructs a <other>Coordinate</other> having the same (x,y,z) values as
+        /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
         /// <other>other</other>.
         /// </summary>
         /// <param name="c"><other>Coordinate</other> to copy.</param>
@@ -125,7 +131,7 @@ namespace GeoAPI.Geometries
         public Coordinate(ICoordinate c) : this(c.X, c.Y, c.Z) { }
 
         /// <summary>
-        /// Constructs a <other>Coordinate</other> having the same (x,y,z) values as
+        /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
         /// <other>other</other>.
         /// </summary>
         /// <param name="c"><other>Coordinate</other> to copy.</param>
@@ -139,7 +145,7 @@ namespace GeoAPI.Geometries
         public Coordinate(double x, double y) : this(x, y, NullOrdinate) { }
 
         /// <summary>
-        /// Gets/Sets <other>Coordinate</other>s (x,y,z) values.
+        /// Gets/Sets <other>Coordinate</other>s (x,y,z,m) values.
         /// </summary>
         public Coordinate CoordinateValue
         {
