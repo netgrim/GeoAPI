@@ -132,6 +132,15 @@ namespace GeoAPI.Geometries
         }
 
         /// <summary>
+        ///  Constructs a <other>Coordinate</other> with ordinates.
+        /// </summary>
+        public Coordinate(Ordinates ordinates)
+        {
+            ValidateOrdinates(ordinates);
+            Ordinates = ordinates;
+        }
+
+        /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
         /// <other>other</other>.
         /// </summary>
@@ -203,7 +212,21 @@ namespace GeoAPI.Geometries
                 Z = value.Z;
             }
         }
-
+        
+        private void ValidateOrdinates(Ordinates ordinates)
+        {
+            switch (ordinates)
+            {
+                case Ordinates.XY:
+                case Ordinates.XYZ:
+                case Ordinates.XYM:
+                case Ordinates.XYZM:
+                    return;
+                default:
+                    throw new NotSupportedException();
+            }
+        }
+        
         /// <summary>
         /// Returns whether the planar projections of the two <other>Coordinate</other>s are equal.
         ///</summary>
