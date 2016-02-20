@@ -193,7 +193,48 @@ namespace GeoAPI.Geometries
         /// Gets the ordinates
         /// </summary>
         public Ordinates Ordinates { get; private set; }
-        
+
+        //public double[] OrdinateArray
+        //{
+        //    get
+        //    {
+        //        var array = new double[OrdinatesUtility.OrdinatesToDimension(Ordinates)];
+        //        GetOrdinates(array);
+        //        return array;
+        //    }
+        //    set
+        //    {
+        //        if (value == null || value.Length != OrdinatesUtility.OrdinatesToDimension(Ordinates))
+        //            throw new ArgumentOutOfRangeException();
+        //        X = value[0]; Y = value[1];
+        //        switch (Ordinates)
+        //        {
+        //            case Ordinates.XY: return;
+        //            case Ordinates.XYM: M = value[2]; break;
+        //            case Ordinates.XYZ: Z = value[2]; break;
+        //            case Ordinates.XYZM: Z = value[2]; M = value[3]; break;
+        //            default: throw new InvalidOperationException();
+        //        }
+        //    }
+        //}
+
+        public void GetOrdinates(double[] values)
+        {
+            if (values == null || values.Length != OrdinatesUtility.OrdinatesToDimension(Ordinates))
+                throw new ArgumentOutOfRangeException("array does not have the right size");
+
+            values[0] = X;
+            values[1] = Y;
+            switch (Ordinates)
+            {
+                case Ordinates.XY: return;
+                case Ordinates.XYZ: values[2] = Z; break;
+                case Ordinates.XYM: values[2] = M; break;
+                case Ordinates.XYZM: values[2] = Z; values[3] = M; break;
+                default: throw new InvalidOperationException();
+            }
+        }
+
         /// <summary>
         /// Gets/Sets <other>Coordinate</other>s (x,y,z,m) values.
         /// </summary>
