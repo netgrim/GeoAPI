@@ -134,6 +134,11 @@ namespace GeoAPI.Geometries
         [Obsolete]
         public Coordinate(ICoordinate c) : this(c.X, c.Y, c.Z, c.M) { }
 
+        public Coordinate WithMeasure(double v)
+        {
+            throw new NotImplementedException();
+        }
+
         /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
         /// <other>other</other>.
@@ -163,11 +168,12 @@ namespace GeoAPI.Geometries
         }
 
         /// <summary>
-        /// Constructs a <other>Coordinate</other> at (x,y,NaN).
+        /// Constructs a <other>Coordinate</other> at (x,y,m).
         /// </summary>
         /// <param name="x">X value.</param>
         /// <param name="y">Y value.</param>
-        public Coordinate FromXYM(double x, double y, double m)
+        /// <param name="m">M value.</param>
+        public static Coordinate FromXYM(double x, double y, double m)
         {
             var coordinate = new Coordinate(x, y, NullOrdinate, m);
             coordinate.Ordinates = Ordinates.XYM;
@@ -624,13 +630,21 @@ namespace GeoAPI.Geometries
 
         /* BEGIN ADDED BY MPAUL42: monoGIS team */
 
-        ///// <summary>
-        ///// Overloaded + operator.
-        ///// </summary>
-        //public static Coordinate operator +(Coordinate coord1, Coordinate coord2)
-        //{
-        //    return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z);
-        //}
+        /// <summary>
+        /// Overloaded + operator.
+        /// </summary>
+        public static Coordinate operator +(Coordinate coord1, Coordinate coord2)
+        {
+            if (coord1.Ordinates != coord2.Ordinates) throw new ArgumentException("Coordinate does not have the same ordinates");
+            switch (coord1.Ordinates)
+            {
+                case Ordinates.XY: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y);
+                case Ordinates.XYZ: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z);
+                case Ordinates.XYM: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.M + coord2.M);
+                case Ordinates.XYZM: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z, coord1.M + coord2.M);
+                default: throw new InvalidOperationException();
+            }
+        }
 
         ///// <summary>
         ///// Overloaded + operator.
@@ -656,13 +670,20 @@ namespace GeoAPI.Geometries
         //    return new Coordinate(coord1.X * coord2.X, coord1.Y * coord2.Y, coord1.Z * coord2.Z);
         //}
 
-        ///// <summary>
-        ///// Overloaded * operator.
-        ///// </summary>
-        //public static Coordinate operator *(Coordinate coord1, double d)
-        //{
-        //    return new Coordinate(coord1.X * d, coord1.Y * d, coord1.Z * d);
-        //}
+        /// <summary>
+        /// Overloaded * operator.
+        /// </summary>
+        public static Coordinate operator *(Coordinate coord1, double d)
+        {
+            switch (coord1.Ordinates)
+            {
+                case Ordinates.XY: return new Coordinate(coord1.X * d, coord1.Y * d);
+                case Ordinates.XYZ: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.Z * d);
+                case Ordinates.XYM: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.M * d);
+                case Ordinates.XYZM: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.Z * d, coord1.M * d);
+                default: throw new InvalidOperationException();
+            }
+        }
 
         ///// <summary>
         ///// Overloaded * operator.
@@ -672,13 +693,21 @@ namespace GeoAPI.Geometries
         //    return coord1 * d;
         //}
 
-        ///// <summary>
-        ///// Overloaded - operator.
-        ///// </summary>
-        //public static Coordinate operator -(Coordinate coord1, Coordinate coord2)
-        //{
-        //    return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z);
-        //}
+        /// <summary>
+        /// Overloaded - operator.
+        /// </summary>
+        public static Coordinate operator -(Coordinate coord1, Coordinate coord2)
+        {
+            if (coord1.Ordinates != coord2.Ordinates) throw new ArgumentException("Coordinate does not have the same ordinates");
+            switch (coord1.Ordinates)
+            {
+                case Ordinates.XY: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y);
+                case Ordinates.XYZ: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z);
+                case Ordinates.XYM: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.M - coord2.M);
+                case Ordinates.XYZM: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z, coord1.M - coord2.M);
+                default: throw new InvalidOperationException();
+            }
+        }
 
         ///// <summary>
         ///// Overloaded - operator.
