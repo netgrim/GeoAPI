@@ -120,7 +120,7 @@ namespace GeoAPI.Geometries
         /// <summary>
         ///  Constructs a <other>Coordinate</other> at (0,0,NaN).
         /// </summary>
-        public Coordinate() : this(0.0, 0.0, NullOrdinate) { }
+        public Coordinate() : this(0.0, 0.0) { }
 
         /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
@@ -128,7 +128,7 @@ namespace GeoAPI.Geometries
         /// </summary>
         /// <param name="c"><other>Coordinate</other> to copy.</param>
         [Obsolete]
-        public Coordinate(ICoordinate c) : this(c.X, c.Y, c.Z) { }
+        public Coordinate(ICoordinate c) : this(c.X, c.Y, c.Z, c.M) { }
 
         /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
@@ -142,7 +142,30 @@ namespace GeoAPI.Geometries
         /// </summary>
         /// <param name="x">X value.</param>
         /// <param name="y">Y value.</param>
-        public Coordinate(double x, double y) : this(x, y, NullOrdinate) { }
+        public Coordinate(double x, double y) 
+        {
+            X = x;
+            Y = y;
+        }
+
+        public Coordinate(double x, double y, double z, double m) 
+        {
+            X = x;
+            Y = y;
+            Z = z;
+            M = m;
+        }
+
+        /// <summary>
+        /// Constructs a <other>Coordinate</other> at (x,y,NaN).
+        /// </summary>
+        /// <param name="x">X value.</param>
+        /// <param name="y">Y value.</param>
+        public Coordinate FromXYM(double x, double y, double m)
+        {
+            var coordinate = new Coordinate(x, y, NullOrdinate, m);
+            return coordinate;
+        }
 
         /// <summary>
         /// Gets/Sets <other>Coordinate</other>s (x,y,z,m) values.
