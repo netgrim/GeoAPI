@@ -148,11 +148,6 @@ namespace GeoAPI.Geometries
         [Obsolete]
         public Coordinate(ICoordinate c) : this(c.X, c.Y, c.Z, c.M) { }
 
-        public Coordinate WithMeasure(double v)
-        {
-            throw new NotImplementedException();
-        }
-
         /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
         /// <other>other</other>.
@@ -225,6 +220,11 @@ namespace GeoAPI.Geometries
                 default:
                     throw new NotSupportedException();
             }
+        }
+        
+        public Coordinate WithMeasure(double v)
+        {
+            throw new NotImplementedException();
         }
         
         /// <summary>
