@@ -74,6 +74,7 @@ namespace GeoAPI.Geometries
             X = x;
             Y = y;
             Z = z;
+            Ordinates = Ordinates.XYZ;
         }
 
         /// <summary>
@@ -118,9 +119,12 @@ namespace GeoAPI.Geometries
         }
 
         /// <summary>
-        ///  Constructs a <other>Coordinate</other> at (0,0,NaN).
+        ///  Constructs a <other>Coordinate</other> at (0,0).
         /// </summary>
-        public Coordinate() : this(0.0, 0.0) { }
+        public Coordinate()
+        {
+            Ordinates = Ordinates.XY;
+        }
 
         /// <summary>
         /// Constructs a <other>Coordinate</other> having the same (x,y,z,m) values as
@@ -146,6 +150,7 @@ namespace GeoAPI.Geometries
         {
             X = x;
             Y = y;
+            Ordinates = Ordinates.XY;
         }
 
         public Coordinate(double x, double y, double z, double m) 
@@ -154,6 +159,7 @@ namespace GeoAPI.Geometries
             Y = y;
             Z = z;
             M = m;
+            Ordinates = Ordinates.XYZM;
         }
 
         /// <summary>
@@ -164,9 +170,15 @@ namespace GeoAPI.Geometries
         public Coordinate FromXYM(double x, double y, double m)
         {
             var coordinate = new Coordinate(x, y, NullOrdinate, m);
+            coordinate.Ordinates = Ordinates.XYM;
             return coordinate;
         }
 
+        /// <summary>
+        /// Gets the ordinates
+        /// </summary>
+        public Ordinates Ordinates { get; private set; }
+        
         /// <summary>
         /// Gets/Sets <other>Coordinate</other>s (x,y,z,m) values.
         /// </summary>
