@@ -263,11 +263,21 @@ namespace GeoAPI.Geometries
             }
         }
         
-        public Coordinate WithMeasure(double v)
+        public Coordinate WithMeasure(double m)
         {
-            throw new NotImplementedException();
+            switch (Ordinates)
+            {
+                case Ordinates.XYM:
+                case Ordinates.XY:
+                    return FromXYM(X, Y, m);
+                case Ordinates.XYZ: 
+                case Ordinates.XYZM:
+                    return new Coordinate(X, Y, Z, m);
+                default:
+                    throw new NotSupportedException();
+            }
         }
-        
+
         /// <summary>
         /// Returns whether the planar projections of the two <other>Coordinate</other>s are equal.
         ///</summary>
