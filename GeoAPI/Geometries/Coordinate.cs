@@ -719,7 +719,7 @@ namespace GeoAPI.Geometries
             {
                 case Ordinates.XY: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y);
                 case Ordinates.XYZ: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z);
-                case Ordinates.XYM: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.M + coord2.M);
+                case Ordinates.XYM: return FromXYM(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.M + coord2.M);
                 case Ordinates.XYZM: return new Coordinate(coord1.X + coord2.X, coord1.Y + coord2.Y, coord1.Z + coord2.Z, coord1.M + coord2.M);
                 default: throw new InvalidOperationException();
             }
@@ -758,7 +758,7 @@ namespace GeoAPI.Geometries
             {
                 case Ordinates.XY: return new Coordinate(coord1.X * d, coord1.Y * d);
                 case Ordinates.XYZ: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.Z * d);
-                case Ordinates.XYM: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.M * d);
+                case Ordinates.XYM: return FromXYM(coord1.X * d, coord1.Y * d, coord1.M * d);
                 case Ordinates.XYZM: return new Coordinate(coord1.X * d, coord1.Y * d, coord1.Z * d, coord1.M * d);
                 default: throw new InvalidOperationException();
             }
@@ -782,7 +782,7 @@ namespace GeoAPI.Geometries
             {
                 case Ordinates.XY: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y);
                 case Ordinates.XYZ: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z);
-                case Ordinates.XYM: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.M - coord2.M);
+                case Ordinates.XYM: return FromXYM(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.M - coord2.M);
                 case Ordinates.XYZM: return new Coordinate(coord1.X - coord2.X, coord1.Y - coord2.Y, coord1.Z - coord2.Z, coord1.M - coord2.M);
                 default: throw new InvalidOperationException();
             }
